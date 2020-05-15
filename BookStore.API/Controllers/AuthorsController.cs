@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookStore.API.Controllers
 {
     /// <summary>
-    /// Endpoint used to interact with the authors in the book store`s datapase
+    /// Endpoint used to interact with the authors in the book store`s database
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -189,8 +189,8 @@ namespace BookStore.API.Controllers
                     _logger.LogWarn($"Bad request: author delete {id}");
                     return BadRequest();
                 }
-                var authorID = await _authorRepository.isExisting(id);
-                if (!authorID)
+                var isExisting = await _authorRepository.isExisting(id);
+                if (!isExisting)
                 {
                     _logger.LogWarn($"Not found: author update {id}");
                     return NotFound();

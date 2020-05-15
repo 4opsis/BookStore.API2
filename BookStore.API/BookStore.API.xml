@@ -6,7 +6,7 @@
     <members>
         <member name="T:BookStore.API.Controllers.AuthorsController">
             <summary>
-            Endpoint used to interact with the authors in the book store`s datapase
+            Endpoint used to interact with the authors in the book store`s database
             </summary>
         </member>
         <member name="M:BookStore.API.Controllers.AuthorsController.GetAuthors">
@@ -42,6 +42,39 @@
             Delete an author
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BookStore.API.Controllers.BooksController">
+            <summary>
+            Endpoint used to interact with the books in the book store`s database
+            </summary>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.GetBooks">
+            <summary>
+            Get all books as a list
+            </summary>
+            <returns>List of books</returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.GetBook(System.Int32)">
+            <summary>
+            Gets a book by ID
+            </summary>
+            <param name="id"></param>
+            <returns>Book record</returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.Create(BookStore.API.DTOs.BookCreateDTO)">
+            <summary>
+            Creates new book
+            </summary>
+            <param name="bookDTO"></param>
+            <returns>Book object</returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.Update(System.Int32,BookStore.API.DTOs.BookUpdateDTO)">
+            <summary>
+            Update single book
+            </summary>
+            <param name="id"></param>
+            <param name="bookDTO"></param>
             <returns></returns>
         </member>
         <member name="T:BookStore.API.Controllers.HomeController">

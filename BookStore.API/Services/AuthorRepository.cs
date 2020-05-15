@@ -41,6 +41,10 @@ namespace BookStore.API.Services
             return author;
         }
         
+        public async Task<bool> isExisting(int id)
+        {
+            return await _db.Authors.AnyAsync(q=>q.ID==id);
+        }
 
         public async Task<bool> Save()
         {
@@ -54,9 +58,5 @@ namespace BookStore.API.Services
             return await Save();
         }
 
-        public async Task<bool> isExisting(int id)
-        {
-            return await _db.Authors.AnyAsync(q=>q.ID==id);
-        }
     }
 }
