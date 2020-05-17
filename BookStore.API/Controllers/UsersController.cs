@@ -37,10 +37,43 @@ namespace BookStore.API.Controllers
             _config = config;
         }
         /// <summary>
+        /// Register endpoint
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
+        [Route("register")]
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
+        {
+            var location = GetControllerActionNames();
+            try
+            {
+                _logger.LogInfo($"{location}: Atempted");
+                var username = userDTO.EmailAdress;
+                var password = userDTO.Password;
+                var user = new IdentityUser { Email = username, UserName = username};
+                var result = await _userManager.CreateAsync(user, password);
+                if (!result.Succeeded)
+                {
+                    foreach(var error in result.Errors)
+                    {
+                        _logger.LogError($"{location}: {error.Code} - {error.Description}");
+                    }
+                    return InternalError($"{location}: Failed {username}");
+                }
+                return Ok(result.Succeeded);
+            }
+            catch (Exception e)
+            {
+                return InternalError($"{location}:{e.Message} - {e.InnerException}");
+            }
+        }
+        /// <summary>
         /// User login Endpoint
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns></returns>
+        [Route("login")]
         [AllowAnonymous]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -50,7 +83,7 @@ namespace BookStore.API.Controllers
             var location = GetControllerActionNames();
             try
             {
-                var username = userDTO.Username;
+                var username = userDTO.EmailAdress;
                 var password = userDTO.Password;
                 var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
                 _logger.LogInfo($"{location}: Atempted");
