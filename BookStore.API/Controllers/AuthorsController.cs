@@ -60,7 +60,7 @@ namespace BookStore.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>An authors records</returns>
-        [HttpGet("(id)")]
+        [HttpGet("{id}")]
         [Authorize(Roles = "Administrator, Customer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,6 +92,7 @@ namespace BookStore.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Administrator")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status415UnsupportedMediaType)]
@@ -132,7 +133,7 @@ namespace BookStore.API.Controllers
         /// <param name="authorDTO"></param>
         /// <returns></returns>
         
-        [HttpPut("(id)")]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -179,7 +180,7 @@ namespace BookStore.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
 
-        [HttpDelete("(id)")]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

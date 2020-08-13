@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,7 +62,7 @@ namespace BookStore.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Book record</returns>
-        [HttpGet("(id)")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetBook(int id)
         {
@@ -131,7 +131,7 @@ namespace BookStore.API.Controllers
         /// <param name="id"></param>
         /// <param name="bookDTO"></param>
         /// <returns></returns>
-        [HttpPut("(id)")]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -174,7 +174,7 @@ namespace BookStore.API.Controllers
             }
         }
 
-        [HttpDelete("(id)")]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

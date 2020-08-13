@@ -1,0 +1,68 @@
+﻿@page "/authors/"
+
+@inject IAuthorRepository _repo
+
+<h3 class="card-title">Index</h3>
+
+@if (Model == null)
+{
+    <LoadingMessage Message="Loading authors" />
+}
+else
+{
+<AuthorizeView Roles="Administrator">
+    <a href="/authors/create" class="btn btn-primary">
+        <span class="oi oi-plus"></span>
+        Create New Author
+    </a>
+</AuthorizeView>
+
+        @if (Model.Count < 1)
+        {
+            <LoadingMessage message="There are no authors in the data base. Click 'Create authors'" />
+        }
+        else
+        {
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var author in Model)
+                    {
+                        <tr>
+                            <td>@author.FirstName</td>
+                            <td>@author.LastName</td>
+                            <td>
+                                <a href="/authors/view/@author.ID" class="btn btn-primary">
+                                    <span class="oi oi-book"></span>
+                                </a>
+                                <AuthorizeView Roles="Administrator">
+                                    <a href="/authors/edit/@author.ID" class="btn btn-warning">
+                                        <span class="oi oi-pencil"></span>
+                                    </a>
+                                    <a href="/authors/delete/@author.ID" class="btn btn-danger">
+                                        <span class="oi oi-delete"></span>
+                                    </a>
+                                </AuthorizeView>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+
+    }
+
+@code {
+    private IList<Author> Model;
+    protected async override Task OnInitializedAsync()
+    {
+        Model = await _repo.Get(Endpoints.AuthorsEndpoint);
+    }
+}
