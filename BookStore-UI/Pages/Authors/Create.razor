@@ -4,6 +4,7 @@
 
 @inject IAuthorRepository _repo
 @inject NavigationManager  _navMan
+@inject IToastService _toastService
 
 
 <h3 class="card-title">Create New Author</h3>
@@ -58,6 +59,7 @@
         var isSuccess = await _repo.Create(Endpoints.AuthorsEndpoint, Model);
         if (isSuccess)
         {
+            _toastService.ShowSuccess("Author created succesfully", "Author created");
             BackToList();
         }
         else
